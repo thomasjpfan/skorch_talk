@@ -7,7 +7,7 @@
 
 Thomas Fan
 
-[github.com/thomasjpfan/pydata2018\_dc\_skorch](https://github.com/thomasjpfan/skorch_talk)
+[github.com/thomasjpfan/skorch\_talk](https://github.com/thomasjpfan/skorch_talk)
 
 ---
 
