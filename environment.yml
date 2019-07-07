@@ -1,0 +1,13 @@
+name: skorch_env
+channels:
+  - pytorch
+  - defaults
+dependencies:
+  - scikit-learn
+  - pytorch
+  - torchvision
+  - pip
+  - jupyterlab
+  - pip:
+    - skorch==0.6.0
+    - kaggle==1.5.4
