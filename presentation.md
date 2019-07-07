@@ -650,10 +650,16 @@ freezer = Freezer('conv*')
 ---
 
 
-### Nuclei Image Segmentation - PatchedDataset
+### Nuclei Image Segmentation - PatchedDataset 1
 
 ![original left](md_images/seg_reflect.png)
-![original right](md_images/seg_patch.png)
+![original right](md_images/seg_reflect_mask.png)
+
+---
+
+### Nuclei Image Segmentation - PatchedDataset 2
+
+![original fit](md_images/seg_patch.png)
 
 ---
 
