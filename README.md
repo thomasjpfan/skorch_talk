@@ -6,12 +6,6 @@
 
 The slides can be downloaded at: [download link](https://github.com/thomasjpfan/skorch_talk/raw/master/presentation.pdf).
 
-## To clone this repo run:
-
-```bash
-git clone --depth 1 https://github.com/thomasjpfan/skorch_talk
-```
-
 ## Google Colab
 
 - [Part One - MNIST](https://colab.research.google.com/github/thomasjpfan/skorch_talk/blob/master/part_1_mnist.ipynb)
@@ -19,6 +13,12 @@ git clone --depth 1 https://github.com/thomasjpfan/skorch_talk
 - [Part Three - Nuclei Image Segmentation Tutorial](https://colab.research.google.com/github/thomasjpfan/skorch_talk/blob/master/part_3_kaggle_seg.ipynb)
 
 ## Local Setup
+
+To clone this repo run:
+
+```bash
+git clone --depth 1 https://github.com/thomasjpfan/skorch_talk
+```
 
 To run the notebook locally, please following the following setup procedure:
 
