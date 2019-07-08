@@ -4,7 +4,7 @@
 
 ## Presentation
 
-The slides can be downloaded at: [download link](https://github.com/thomasjpfan/skorch_talk/raw/master/slides.pdf).
+The slides can be downloaded at: [download link](https://github.com/thomasjpfan/skorch_talk/raw/master/presentation.pdf).
 
 ## To clone this repo run:
 
