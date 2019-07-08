@@ -16,7 +16,7 @@ git clone --depth 1 https://github.com/thomasjpfan/skorch_talk
 
 - [Part One - MNIST](https://colab.research.google.com/github/thomasjpfan/skorch_talk/blob/master/part_1_mnist.ipynb)
 - [Part Two - Transfer learning Bees vs Ants](https://colab.research.google.com/github/thomasjpfan/skorch_talk/blob/master/part_2_bee_vs_ant.ipynb)
-- [Part Three - Nuclei Image Segmentation Tutorial](https://colab.research.google.com/github/thomasjpfan/skorch_talk/blob/master/part_3_kaggle_seg.ipynb#scrollTo=kGHhLTeT7AiE)
+- [Part Three - Nuclei Image Segmentation Tutorial](https://colab.research.google.com/github/thomasjpfan/skorch_talk/blob/master/part_3_kaggle_seg.ipynb)
 
 ## Local Setup
 
