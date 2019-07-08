@@ -850,6 +850,41 @@ print(val_prob_masks.shape)
 
 ---
 
+# Appendix - More sckit-learn like - 1
+
+```python
+from sklearn.base import ClassifierMixin
+from sklearn.utils.extmath import softmax
+from skorch import NeuralNet
+
+class MyNNClassifer(ClassifierMixin, NeuralNet):
+    def predict_proba(self, X):
+        y_pred = super().predict_proba(X)
+        return softmax(y_pred)
+
+    def predict(self, X):
+        y_pred = super().predict(X)
+        return np.argmax(y_pred, axis=1)
+```
+
+---
+
+# Appendix - More sckit-learn like - 2
+
+```python
+epoch_acc = EpochScoring(
+    'accuracy',
+    name='valid_acc',
+    lower_is_better=False)
+
+net = MyNNClassifer(
+    SimpleFeedforward,
+    ...,
+    callbacks=[epoch_acc])
+```
+
+---
+
 # Appendix Nuclei Image Segmentation - Cyclic LR Scheduler
 
 - Number of training samples: `len(train_ds) = 1756`
