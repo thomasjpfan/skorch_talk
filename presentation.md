@@ -5,7 +5,7 @@
 
 # A Union of Scikit-learn and PyTorch
 
-Thomas Fan
+Thomas J Fan - @thomasjpfan
 
 [github.com/thomasjpfan/skorch\_talk](https://github.com/thomasjpfan/skorch_talk)
 
@@ -847,6 +847,7 @@ print(val_prob_masks.shape)
 - [skorch Tutorials](https://skorch.readthedocs.io/en/latest/user/tutorials.html)
 - [github.com/skorch-dev/skorch](https://github.com/skorch-dev/skorch)
 - [github.com/thomasjpfan/skorch\_talk](https://github.com/thomasjpfan/skorch_talk)
+- Thomas J Fan - @thomasjpfan
 
 ---
 
