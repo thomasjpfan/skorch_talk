@@ -17,13 +17,6 @@ Thomas J Fan - @thomasjpfan
 
 # SciKit-Learn API
 
-[.code-highlight: all]
-[.code-highlight: 1]
-[.code-highlight: 3]
-[.code-highlight: 5]
-[.code-highlight: 7]
-[.code-highlight: 9]
-
 ```python
 clf = SGDClassifier(alpha=0.01)
 
@@ -161,8 +154,6 @@ X_train, X_test, y_train, y_test = train_test_split(
 # MNIST - Neural Network Module
 
 [.code-highlight: all]
-[.code-highlight: 1,3,5,12]
-[.code-highlight: 3-4,6-10]
 
 ```python
 from torch.nn as nn
@@ -191,8 +182,7 @@ class SimpleFeedforward(nn.Module):
 # MNIST - Loss function skorch
 
 [.code-highlight: all]
-[.code-highlight: 4]
-[.code-highlight: 5]
+[.code-highlight: 4-5]
 [.code-highlight: 6-8]
 
 ```python
@@ -276,14 +266,15 @@ print('test accuracy:', accuracy_argmax(y_test, y_pred))
 # MNIST - EpochScoring
 
 [.code-highlight: all]
-[.code-highlight: 1-3]
-[.code-highlight: 3,5-8]
-[.code-highlight: 10-11]
+[.code-highlight: 1-2]
+[.code-highlight: 4-9]
+[.code-highlight: 11-12]
 
 ```python
-from skorch.callbacks import EpochScoring
 from sklearn.metrics import make_scorer
 accuracy_argmax_scorer = make_scorer(accuracy_argmax)
+
+from skorch.callbacks import EpochScoring
 
 epoch_acc = EpochScoring(
     accuracy_argmax_scorer,
@@ -325,91 +316,16 @@ _ = pipe.fit(X_train, y_train)
 
 ---
 
-# MNIST - Grid Search
-
-[.code-highlight: all]
-[.code-highlight: 1-7]
-[.code-highlight: 8-12]
-
-```python
-from sklearn.model_selection import GridSearchCV
-
-param_grid = {"net__module__dropout": [0.2, 0.5, 0.8]}
-
-gs = GridSearchCV(pipe, param_grid, cv=3,
-                  scoring=accuracy_argmax_scorer)
-_ = gs.fit(X, y)
-print("best score:", gs.best_score_)
-# best score: 0.9651
-
-print("best_params", gs.best_params_)
-# best_params {'net__module__dropout': 0.2}
-```
-
----
-
 ![inline](md_images/bee_vs_ant_images.png)
 
 ---
 
-# Ants and Bees - Folder Structure
-
-```bash
-datasets/hymenoptera_data/
-├── train
-│   ├── ants
-│   └── bees
-└── val
-    ├── ants
-    └── bees
-```
-
----
-
-# Ants and Bees - ImageFolder Init
-
-```python
-from torchvision.datasets import ImageFolder
-
-train_tfms = ...
-val_tfms = ...
-
-train_ds = ImageFolder(
-    "datasets/hymenoptera_data/train" , train_tfms)
-val_ds = ImageFolder(
-    "datasets/hymenoptera_data/val", val_tfms)
-```
-
----
-
-# Ants and Bees - ImageFolder Class
-
-Subclass of `torch.utils.data.Dataset`
-
-[.code-highlight: all]
-[.code-highlight: 1-2]
-[.code-highlight: 4-6]
-[.code-highlight: 8-10]
-
-```python
-print(len(train_ds), len(val_ds))
-# (244, 153)
-
-img, target = train_ds[0]
-print(img.shape, target)
-# (torch.Size([3, 224, 224]), 0)
-
-# For ImageFolder only:
-print(train_ds.class_to_idx)
-# {'ants': 0, 'bees': 1}
-```
-
----
 
 # Ants and Bees - ImageFolder Transformations
 
 [.code-highlight: all]
-[.code-highlight: 1-9]
+[.code-highlight: 1-8]
+[.code-highlight: 10-13]
 
 ```python
 import torchvision.transforms as tfms
@@ -419,12 +335,12 @@ train_tfms = tfms.Compose([
     tfms.RandomHorizontalFlip(),
     tfms.ToTensor(),
     tfms.Normalize([0.485, 0.456, 0.406],
-                   [0.229, 0.224, 0.225])
-])
+                   [0.229, 0.224, 0.225])])
 
 train_ds = ImageFolder(
     "datasets/hymenoptera_data/train" , train_tfms)
-
+valid_ds = ImageFolder(
+    "datasets/hymenoptera_data/val" , val_tfms)
 ```
 
 ---
@@ -843,48 +759,13 @@ print(val_prob_masks.shape)
 
 ![inline](md_images/skorch-logo.png)
 
-- [skorch.readthedocs.io](https://skorch.readthedocs.io/)
-- [skorch Tutorials](https://skorch.readthedocs.io/en/latest/user/tutorials.html)
-- [github.com/skorch-dev/skorch](https://github.com/skorch-dev/skorch)
 - [github.com/thomasjpfan/skorch\_talk](https://github.com/thomasjpfan/skorch_talk)
+- [github.com/skorch-dev/skorch](https://github.com/skorch-dev/skorch)
+- [skorch.readthedocs.io](https://skorch.readthedocs.io/)
 - Thomas J Fan - @thomasjpfan
 
 ---
 
-# Appendix - More sckit-learn like - 1
-
-```python
-from sklearn.base import ClassifierMixin
-from sklearn.utils.extmath import softmax
-from skorch import NeuralNet
-
-class MyNNClassifer(ClassifierMixin, NeuralNet):
-    def predict_proba(self, X):
-        y_pred = super().predict_proba(X)
-        return softmax(y_pred)
-
-    def predict(self, X):
-        y_pred = super().predict(X)
-        return np.argmax(y_pred, axis=1)
-```
-
----
-
-# Appendix - More sckit-learn like - 2
-
-```python
-epoch_acc = EpochScoring(
-    'accuracy',
-    name='valid_acc',
-    lower_is_better=False)
-
-net = MyNNClassifer(
-    SimpleFeedforward,
-    ...,
-    callbacks=[epoch_acc])
-```
-
----
 
 # Appendix Nuclei Image Segmentation - Cyclic LR Scheduler
 
@@ -955,3 +836,115 @@ run(max_epochs=5)
 ```
 
 ![inline](md_images/ants_vs_bees_second_run.png)
+
+---
+
+# Ants and Bees - Folder Structure
+
+```bash
+datasets/hymenoptera_data/
+├── train
+│   ├── ants
+│   └── bees
+└── val
+    ├── ants
+    └── bees
+```
+
+---
+
+# Ants and Bees - ImageFolder Init
+
+```python
+from torchvision.datasets import ImageFolder
+
+train_tfms = ...
+val_tfms = ...
+
+train_ds = ImageFolder(
+    "datasets/hymenoptera_data/train" , train_tfms)
+val_ds = ImageFolder(
+    "datasets/hymenoptera_data/val", val_tfms)
+```
+
+---
+
+# Ants and Bees - ImageFolder Class
+
+Subclass of `torch.utils.data.Dataset`
+
+[.code-highlight: all]
+[.code-highlight: 1-2]
+[.code-highlight: 4-6]
+[.code-highlight: 8-10]
+
+```python
+print(len(train_ds), len(val_ds))
+# (244, 153)
+
+img, target = train_ds[0]
+print(img.shape, target)
+# (torch.Size([3, 224, 224]), 0)
+
+# For ImageFolder only:
+print(train_ds.class_to_idx)
+# {'ants': 0, 'bees': 1}
+```
+
+---
+
+# MNIST - Grid Search
+
+[.code-highlight: all]
+[.code-highlight: 1-7]
+[.code-highlight: 8-12]
+
+```python
+from sklearn.model_selection import GridSearchCV
+
+param_grid = {"net__module__dropout": [0.2, 0.5, 0.8]}
+
+gs = GridSearchCV(pipe, param_grid, cv=3,
+                  scoring=accuracy_argmax_scorer)
+_ = gs.fit(X, y)
+print("best score:", gs.best_score_)
+# best score: 0.9651
+
+print("best_params", gs.best_params_)
+# best_params {'net__module__dropout': 0.2}
+```
+
+---
+
+# MNIST - More sckit-learn like - 1
+
+```python
+from sklearn.base import ClassifierMixin
+from sklearn.utils.extmath import softmax
+from skorch import NeuralNet
+
+class MyNNClassifer(ClassifierMixin, NeuralNet):
+    def predict_proba(self, X):
+        y_pred = super().predict_proba(X)
+        return softmax(y_pred)
+
+    def predict(self, X):
+        y_pred = super().predict(X)
+        return np.argmax(y_pred, axis=1)
+```
+
+---
+
+# MNIST - More sckit-learn like - 2
+
+```python
+epoch_acc = EpochScoring(
+    'accuracy',
+    name='valid_acc',
+    lower_is_better=False)
+
+net = MyNNClassifer(
+    SimpleFeedforward,
+    ...,
+    callbacks=[epoch_acc])
+```
